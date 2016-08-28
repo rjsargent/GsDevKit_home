@@ -67,7 +67,7 @@ case "$PLATFORM" in
       # Linux looks OK
       gsvers="GemStone64Bit${vers}-x86_64.Linux"
       ;;
-    MSYS_NT*|MINGW32_NT*)
+    MSYS_NT*|MINGW32_NT*|MINGW64_NT*)
       if  [ "$vers" \< "3.3.0"  ] ;  then 
           gsvers="GemBuilderC${vers}-x86.Windows_NT"
       else
@@ -83,21 +83,7 @@ esac
 gss_file=${gsvers}.zip
 
 # set ftp_address
-case "$vers" in
-  2.4.4.2|2.4.4.3|2.4.4.4|2.4.4.5|2.4.4.6)
-    ftp_address=ftp://ftp.gemstone.com
-    ;;
-  3.0.0)
-    ftp_address=ftp://ftp.gemstone.com
-    ;;
-  3.1.0|3.1.0.1)
-    ftp_address=ftp://ftp.gemstone.com
-    ;;
-  *)
-    ftp_address=http://ftp.gemtalksystems.com:80
-    ;;
-esac
-
+ftp_address=https://downloads.gemtalksystems.com
 
 # Check that the current directory is writable
 if [ ! -w "." ]
@@ -149,7 +135,7 @@ popd >& /dev/null
 
 
 case "$PLATFORM" in
-  MSYS_NT*|MINGW32_NT*) #do nothing
+  MSYS_NT*|MINGW32_NT*|MINGW64_NT*) #do nothing
     ;;
   *)
     # Copy initial system.conf into the Seaside data directory
